@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class HomeActivity extends AppCompatActivity implements TruyenFood, DangXuat {
+public class HomeActivity extends AppCompatActivity implements TruyenFood {
     private ViewPager2 viewPager2;
     private BottomNavigationView bottomNavigationView;
 
@@ -61,13 +61,6 @@ public class HomeActivity extends AppCompatActivity implements TruyenFood, DangX
     public void DataFood(Food food) {
         Intent intent = new Intent(HomeActivity.this, DetailFood.class);
         intent.putExtra("data", food);
-        startActivity(intent);
-    }
-
-    @Override
-    public void Exit(Food food) {
-        Intent intent = new Intent(HomeActivity.this, SigninActivity.class);
-        intent.putExtra("logout", food);
         startActivity(intent);
     }
 }

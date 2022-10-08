@@ -1,5 +1,6 @@
 package com.zantung.btapgiuaki.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.zantung.btapgiuaki.HomeActivity;
@@ -26,8 +28,8 @@ public class SettingFragment extends Fragment {
         ivDangXuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(HomeActivity.this, SignupActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), SigninActivity.class);
+                startActivity(intent);
             }
         });
         return view;

@@ -50,4 +50,5 @@ public class HomeFragment extends ListFragment {
         arrayFood.add(new Food("Hamburger", R.drawable.hamburger, 10.1));
         arrayFood.add(new Food("Bánh panini", R.drawable.panini, 12.1));
     }
+
 }
