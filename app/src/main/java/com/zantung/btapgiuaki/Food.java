@@ -3,14 +3,27 @@ package com.zantung.btapgiuaki;
 import java.io.Serializable;
 
 public class Food implements Serializable {
-    private String tenFood;
-    private int Hinh;
+    private String id, tenFood;
+    private String Hinh;
     private double gia;
 
-    public Food(String tenFood, int hinh, double gia) {
+    public Food() {
+
+    }
+
+    public Food(String id, String tenFood, String hinh, double gia) {
+        this.id = id;
         this.tenFood = tenFood;
         Hinh = hinh;
         this.gia = gia;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTenFood() {
@@ -21,11 +34,11 @@ public class Food implements Serializable {
         this.tenFood = tenFood;
     }
 
-    public int getHinh() {
+    public String getHinh() {
         return Hinh;
     }
 
-    public void setHinh(int hinh) {
+    public void setHinh(String hinh) {
         Hinh = hinh;
     }
 

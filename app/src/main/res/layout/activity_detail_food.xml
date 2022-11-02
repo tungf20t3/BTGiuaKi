@@ -21,6 +21,7 @@
         android:id="@+id/imageViewDetail"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,65 +56,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/container" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/round_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewDetail">
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:background="@drawable/round_border"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageViewDetail">-->
 
-        <ImageView
-            android:id="@+id/imgMinus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_border"
-            android:padding="5dp"
-            app:layout_constraintEnd_toStartOf="@+id/tvGia"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail"
-            app:srcCompat="@drawable/minus" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imgMinus"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/round_border"-->
+<!--            android:padding="5dp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/tvGia"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail"-->
+<!--            app:srcCompat="@drawable/minus" />-->
 
-        <TextView
-            android:id="@+id/tvSoLuong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:text="1"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/tvSoLuong"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:text="1"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
-        <ImageView
-            android:id="@+id/imgPlus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/round_border"
-            android:padding="5dp"
-            app:layout_constraintStart_toEndOf="@+id/tvGia"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail"
-            app:srcCompat="@drawable/plus" />
+<!--        <ImageView-->
+<!--            android:id="@+id/imgPlus"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/round_border"-->
+<!--            android:padding="5dp"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/tvGia"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail"-->
+<!--            app:srcCompat="@drawable/plus" />-->
 
-        <TextView
-            android:id="@+id/tvGia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="5dp"
-            android:text="$"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail" />
-    </LinearLayout>
+<!--        <TextView-->
+<!--            android:id="@+id/tvGia"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:padding="5dp"-->
+<!--            android:text="$"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tvNameFoodDetail" />-->
+<!--    </LinearLayout>-->
 
     <Button
         android:id="@+id/buttonbuynow"
@@ -149,13 +150,13 @@
 
     <CheckBox
         android:id="@+id/btn_like"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="30dp"
-        android:minHeight="50dp"
-        android:button="@null"
         android:background="@drawable/ic_like"
+        android:button="@null"
         android:checked="false"
+        android:minHeight="50dp"
         android:stateListAnimator="@drawable/anim_scale"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.154"

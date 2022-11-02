@@ -10,6 +10,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class SigninActivity extends AppCompatActivity {
     Button btn_Signin;
@@ -17,6 +27,8 @@ public class SigninActivity extends AppCompatActivity {
     EditText edtEmail, edtPassword;
     CheckBox cbSavePass;
     SharedPreferences sharedPreferences;
+    User user = new User();
+    String link_host = "https://zantung.000webhostapp.com/food/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,30 +52,15 @@ public class SigninActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = edtEmail.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
-
                 if (checkEmail(email) & checkPasswword(password)) {
-                    Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    if (cbSavePass.isChecked()){
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("taikhoan", email);
-                        editor.putString("matkhau", password);
-                        editor.putBoolean("checked", true);
-                        editor.commit();
-                    }else {
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.remove("taikhoan");
-                        editor.remove("matkhau");
-                        editor.remove("checked");
-                        editor.commit();
-                    }
+                    dangNhap();
                 }
             }
         });
     }
 
     private boolean checkEmail(String email) {
-        if (!email.isEmpty() && email.equals("vantung.260902@gmail.com")) {
+        if (!email.isEmpty()){
             edtEmail.setBackgroundResource(R.drawable.round_border);
             edtEmail.setError(null);
             return true;
@@ -75,7 +72,7 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     private boolean checkPasswword(String pass) {
-        if (!pass.isEmpty() && pass.equals("123")) {
+        if (!pass.isEmpty()) {
             edtPassword.setBackgroundResource(R.drawable.round_border);
             edtPassword.setError(null);
             return true;
@@ -84,6 +81,47 @@ public class SigninActivity extends AppCompatActivity {
             edtPassword.setBackgroundResource(R.drawable.errorbg);
         }
         return false;
+    }
+
+    private void dangNhap(){
+        String email = edtEmail.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("username", email);
+        params.put("password", password);
+        client.post(link_host+"login.php", params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    if (response.getString("trang_thai").equals("success")){
+
+                        if (cbSavePass.isChecked()){
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("taikhoan", email);
+                            editor.putString("matkhau", password);
+                            editor.putBoolean("checked", true);
+                            editor.putInt("id", response.getInt("id"));
+                            editor.commit();
+                        }else {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.remove("taikhoan");
+                            editor.remove("matkhau");
+                            editor.remove("checked");
+                            editor.remove("id");
+                            editor.commit();
+                        }
+                        Intent intent = new Intent(SigninActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(SigninActivity.this, "Dang nhap that bai", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void anhXa() {

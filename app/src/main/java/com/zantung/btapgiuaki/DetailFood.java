@@ -3,16 +3,32 @@ package com.zantung.btapgiuaki;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class DetailFood extends AppCompatActivity {
-    ImageView imageViewChiTiet, btnPlus, btnMinus;
-    TextView tvNameFoodCT, tvNumberOrder, tvPriceCT;
-    private int numberOrder = 1;
+    ImageView imageViewChiTiet;
+    TextView tvNameFoodCT;
+    Button btn_addCart;
+    SharedPreferences sharedPreferences;
+    String link_host = "https://zantung.000webhostapp.com/food/";
+    String id_sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,41 +36,56 @@ public class DetailFood extends AppCompatActivity {
         setContentView(R.layout.activity_detail_food);
 
         anhxa();
-        Intent intent = getIntent();
 
+        Intent intent = getIntent();
         if(intent != null){
             Food food = (Food) intent.getSerializableExtra("data");
-            imageViewChiTiet.setImageResource(food.getHinh());
+            id_sp = food.getId();
             tvNameFoodCT.setText(food.getTenFood());
-            tvPriceCT.setText("$" + food.getGia());
-
-            btnPlus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    numberOrder = numberOrder + 1;
-                    tvNumberOrder.setText(String.valueOf(numberOrder));
-                    tvPriceCT.setText(String.valueOf("$" + numberOrder * food.getGia()));
-                }
-            });
-            btnMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (numberOrder > 1){
-                        numberOrder = numberOrder - 1;
-                    }
-                    tvNumberOrder.setText(String.valueOf(numberOrder));
-                    tvPriceCT.setText(String.valueOf("$" + numberOrder * food.getGia()));
-                }
-            });
+            Glide
+                    .with(this)
+                    .load("https://zantung.000webhostapp.com/" + food.getHinh())
+                    .fitCenter()
+                    .into(imageViewChiTiet);
         }
+        btn_addCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addSPCart();
+            }
+        });
     }
-
     private void anhxa() {
         imageViewChiTiet = (ImageView) findViewById(R.id.imageViewDetail);
         tvNameFoodCT = (TextView) findViewById(R.id.tvNameFoodDetail);
-        tvPriceCT = (TextView) findViewById(R.id.tvGia);
-        tvNumberOrder = (TextView) findViewById(R.id.tvSoLuong);
-        btnMinus = (ImageView) findViewById(R.id.imgMinus);
-        btnPlus = (ImageView) findViewById(R.id.imgPlus);
+        btn_addCart = (Button) findViewById(R.id.buttonaddcart);
+    }
+    private void addSPCart(){
+        sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
+        int id_user = sharedPreferences.getInt("id", 0);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("id_user", id_user);
+        params.put("id_sp", id_sp);
+        params.put("so_luong", 1);
+
+        client.post(link_host+"addCart.php", params, new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+
+                    if (response.getString("trang_thai").equals("true")){
+                        Toast.makeText(DetailFood.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(DetailFood.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.zantung.btapgiuaki.fragment.CartFragment;
 import com.zantung.btapgiuaki.fragment.HomeFragment;
 import com.zantung.btapgiuaki.fragment.ProfileFragment;
 import com.zantung.btapgiuaki.fragment.SettingFragment;
@@ -23,9 +24,12 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return new HomeFragment();
 
             case 1:
-                return new ProfileFragment();
+                return new CartFragment();
 
             case 2:
+                return new ProfileFragment();
+
+            case 3:
                 return new SettingFragment();
 
             default:
@@ -35,6 +39,6 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 4;
     }
 }

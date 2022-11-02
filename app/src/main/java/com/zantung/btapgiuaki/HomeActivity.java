@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -30,10 +31,12 @@ public class HomeActivity extends AppCompatActivity implements TruyenFood {
                 int id = item.getItemId();
                 if (id == R.id.bottom_home){
                     viewPager2.setCurrentItem(0);
-                } else if (id == R.id.bottom_profile){
+                } else if (id == R.id.bottom_cart){
                     viewPager2.setCurrentItem(1);
-                } else if (id == R.id.bottom_setting){
+                } else if (id == R.id.bottom_profile){
                     viewPager2.setCurrentItem(2);
+                } else if (id == R.id.bottom_setting){
+                    viewPager2.setCurrentItem(3);
                 }
                 return true;
             }
@@ -48,9 +51,12 @@ public class HomeActivity extends AppCompatActivity implements TruyenFood {
                         bottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
                         break;
                     case 1:
-                        bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+                        bottomNavigationView.getMenu().findItem(R.id.bottom_cart).setChecked(true);
                         break;
                     case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+                        break;
+                    case 3:
                         bottomNavigationView.getMenu().findItem(R.id.bottom_setting).setChecked(true);
                         break;
                 }
