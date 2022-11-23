@@ -49,6 +49,7 @@ public class HomeFragment extends ListFragment {
         truyenFood.DataFood(arrayFood.get(position));
     }
 
+
     private void getData(){
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "https://zantung.000webhostapp.com/food/getAll.php ";
