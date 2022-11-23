@@ -2,6 +2,7 @@ package com.zantung.btapgiuaki;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class SigninActivity extends AppCompatActivity {
     TextView txtCreateAcc;
     EditText edtEmail, edtPassword;
     CheckBox cbSavePass;
+    ProgressDialog progressDialog;
     SharedPreferences sharedPreferences;
     User user = new User();
     String link_host = "https://zantung.000webhostapp.com/food/";
@@ -90,12 +92,13 @@ public class SigninActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("username", email);
         params.put("password", password);
+        progressDialog.show();
         client.post(link_host+"login.php", params, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     if (response.getString("trang_thai").equals("success")){
-
+                        progressDialog.dismiss();
                         if (cbSavePass.isChecked()){
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("taikhoan", email);
@@ -130,5 +133,6 @@ public class SigninActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.inputEmail);
         edtPassword = findViewById(R.id.inputPassword);
         cbSavePass = findViewById(R.id.cbRemember);
+        progressDialog = new ProgressDialog(this);
     }
 }

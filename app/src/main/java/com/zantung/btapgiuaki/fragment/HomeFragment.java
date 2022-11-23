@@ -1,5 +1,6 @@
 package com.zantung.btapgiuaki.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import cz.msebera.android.httpclient.Header;
 public class HomeFragment extends ListFragment {
     ArrayList<Food> arrayFood;
     FoodAdapter adapter;
+    ProgressDialog progressDialog;
     TruyenFood truyenFood;
     @Nullable
     @Override
@@ -40,6 +42,7 @@ public class HomeFragment extends ListFragment {
         arrayFood = new ArrayList<>();
         adapter = new FoodAdapter(getActivity(), R.layout.row_food, arrayFood);
         setListAdapter(adapter);
+        progressDialog = new ProgressDialog(getActivity());
         getData();
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
@@ -53,6 +56,7 @@ public class HomeFragment extends ListFragment {
     private void getData(){
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "https://zantung.000webhostapp.com/food/getAll.php ";
+        progressDialog.show();
         client.get(url, new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -65,6 +69,7 @@ public class HomeFragment extends ListFragment {
                         food.setHinh(object.getString("image_food"));
                         food.setGia(object.getDouble("price"));
                         arrayFood.add(food);
+                        progressDialog.dismiss();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
